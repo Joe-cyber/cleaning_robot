@@ -145,6 +145,7 @@ class CleaningRobot:
         if GPIO.input(self.BATTERY_PIN) <= 10:
             GPIO.output(self.RECHARGE_LED_PIN, GPIO.HIGH)
             self.battery_led_on = True
+            self.cleaning_system_on = False
         else:
             GPIO.output(self.CLEANING_SYSTEM_PIN, GPIO.HIGH)
             self.cleaning_system_on = True
