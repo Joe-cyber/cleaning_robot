@@ -40,6 +40,14 @@ class CleaningRobotTest(unittest.TestCase):
     def test_implement_execute_command_right(self):
         self.assertRaises(CleaningRobotError, self.robot.execute_command, 'a')
 
-    def test_obstacle_found_true(self):
+    @patch.object(GPIO, 'input')
+    def test_obstacle_found_true(self, mock_input):
+        mock_input.return_value = 100
         obstacle = self.robot.obstacle_found()
         self.assertTrue(obstacle)
+
+    @patch.object(GPIO, 'input')
+    def test_obstacle_found_false(self, mock_input):
+        mock_input.return_value = 0
+        obstacle = self.robot.obstacle_found()
+        self.assertFalse(obstacle)
