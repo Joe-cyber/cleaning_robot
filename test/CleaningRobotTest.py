@@ -9,15 +9,16 @@ class CleaningRobotTest(unittest.TestCase):
     """
     Your tests go here
     """
+
+    def setUp(self) -> None:
+        self.robot = CleaningRobot(3, 3)
+        self.robot.initialize_robot()
     def test_initialize_robot(self):
-        robot = CleaningRobot(3, 3)
-        robot.initialize_robot()
-        self.assertEqual("(0,0,N)", robot.robot_status())
+        self.assertEqual("(0,0,N)", self.robot.robot_status())
 
     @patch.object(GPIO, 'input')
     def test_battery_is_under_10_percent(self, mock_input):
         mock_input.return_value = 5
-        robot = CleaningRobot(3, 3)
-        robot.initialize_robot()
-        robot.manage_battery()
-        self.assertTrue(robot.battery_led_on)
+        self.robot.manage_battery()
+        self.assertTrue(self.robot.battery_led_on)
+
