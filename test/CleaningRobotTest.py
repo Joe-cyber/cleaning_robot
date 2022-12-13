@@ -25,8 +25,6 @@ class CleaningRobotTest(unittest.TestCase):
 
     @patch.object(GPIO, 'input')
     def test_battery_is_up_10_percent(self, mock_input):
-        mock_input.return_value = 5
-        robot = CleaningRobot(3, 3)
-        robot.initialize_robot()
-        robot.manage_battery()
-        self.assertTrue(robot.cleaning_system_on)
+        mock_input.return_value = 15
+        self.robot.manage_battery()
+        self.assertTrue(self.robot.cleaning_system_on)
