@@ -62,3 +62,9 @@ class CleaningRobotTest(unittest.TestCase):
         mock_input.return_value = 50
         new_pos = self.robot.execute_command('f')
         self.assertEqual("(0,1,N)(0,2)", new_pos)
+
+    @patch.object(GPIO, 'input')
+    def test_implement_execute_command_forward_status_update(self, mock_input):
+        mock_input.side_effect = [0, 50]
+        self.robot.execute_command('f')
+        self.assertRaises(CleaningRobotError, self.robot.execute_command, 'f')
