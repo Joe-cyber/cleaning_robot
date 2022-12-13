@@ -39,3 +39,7 @@ class CleaningRobotTest(unittest.TestCase):
 
     def test_implement_execute_command_right(self):
         self.assertRaises(CleaningRobotError, self.robot.execute_command, 'a')
+
+    def test_obstacle_found_true(self):
+        obstacle = self.robot.obstacle_found()
+        self.assertTrue(obstacle)
