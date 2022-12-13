@@ -40,3 +40,7 @@ class CleaningRobotTest(unittest.TestCase):
     def test_implement_execute_command_right(self):
         new_pos = self.robot.execute_command('r')
         self.assertEqual("(0,0,E)", new_pos)
+
+    def test_implement_execute_command_not_valid(self):
+        new_pos = self.robot.execute_command('r')
+        self.assertEqual("(0,0,E)", new_pos)
