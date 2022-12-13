@@ -68,3 +68,10 @@ class CleaningRobotTest(unittest.TestCase):
         mock_input.side_effect = [0, 0, 50]
         self.robot.execute_command('f')
         self.assertRaises(CleaningRobotError, self.robot.execute_command, 'f')
+
+    @patch.object(GPIO, 'input')
+    def test_battery_low_shout_down(self, mock_input):
+        mock_input.return_value = 5
+        self.robot.manage_battery()
+        self.assertFalse(self.robot.cleaning_system_on)
+
