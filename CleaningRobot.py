@@ -109,7 +109,6 @@ class CleaningRobot:
             self.activate_rotation_motor(self.RIGHT)
             ind = dir.index(self.facing)
             self.facing = dir.pop(3) if ind == 0 else dir.pop(ind - 1)
-
         return self.robot_status()
 
     def obstacle_found(self) -> bool:
