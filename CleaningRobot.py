@@ -118,7 +118,8 @@ class CleaningRobot:
         Checks whether the infrared distance sensor has detected an obstacle in front of it.
         :return: True if the infrared sensor detects something, False otherwise.
         """
-        return GPIO.input(self.INFRARED_PIN) != 0
+        self.obstacle = GPIO.input(self.INFRARED_PIN) != 0
+        return self.obstacle
 
     def manage_battery(self) -> None:
         """
