@@ -38,5 +38,4 @@ class CleaningRobotTest(unittest.TestCase):
         self.assertEqual("(0,0,W)", new_pos)
 
     def test_implement_execute_command_right(self):
-        new_pos = self.robot.execute_command('r')
-        self.assertEqual("(0,0,E)", new_pos)
+        self.assertRaises(CleaningRobotError, self.robot.execute_command, 'a')
