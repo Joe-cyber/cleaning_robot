@@ -55,4 +55,4 @@ class CleaningRobotTest(unittest.TestCase):
     @patch.object(GPIO, 'input')
     def test_obstacle_found_state(self, mock_input):
         mock_input.return_value = 50
-        self.assertEqual("(0,0,N)(0,1)")
+        self.assertEqual("(0,0,N)(0,1)", self.robot.robot_status())
