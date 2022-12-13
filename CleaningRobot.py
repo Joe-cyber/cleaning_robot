@@ -110,6 +110,16 @@ class CleaningRobot:
                 self.facing = self.E
             elif self.facing == self.E:
                 self.facing = self.N
+        elif command == 'r':
+            self.activate_rotation_motor(self.RIGHT)
+            if self.facing == self.N:
+                self.facing = self.E
+            elif self.facing == self.W:
+                self.facing = self.N
+            elif self.facing == self.S:
+                self.facing = self.W
+            elif self.facing == self.E:
+                self.facing = self.S
         return self.robot_status()
 
     def obstacle_found(self) -> bool:
