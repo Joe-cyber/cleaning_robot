@@ -90,7 +90,27 @@ class CleaningRobot:
             x and y define the new position of the rover while dir represents its direction (i.e., N, S, W, or E).
             Finally, o_x and o_y are the coordinates of the encountered obstacle.
         """
-        return '(0,1,N)'
+        if command == 'f':
+            self.activate_wheel_motor()
+            if self.facing == self.N:
+                self.pos_y += 1
+            elif self.facing == self.S:
+                self.pos_y -= 1
+            elif self.facing == self.W:
+                self.pos_x -= 1
+            elif self.facing == self.E:
+                self.pos_x += 1
+        elif command == 'l':
+            self.activate_rotation_motor(self.LEFT)
+            if self.facing == self.N:
+                self.facing = self.W
+            elif self.facing == self.W:
+                self.facing = self.S
+            elif self.facing == self.S:
+                self.facing = self.E
+            elif self.facing == self.E:
+                self.facing = self.N
+        return self.robot_status()
 
     def obstacle_found(self) -> bool:
         """
