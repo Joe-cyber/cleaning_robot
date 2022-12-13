@@ -28,3 +28,7 @@ class CleaningRobotTest(unittest.TestCase):
         mock_input.return_value = 15
         self.robot.manage_battery()
         self.assertTrue(self.robot.cleaning_system_on)
+
+    def test_implement_execute_command_forward(self):
+        new_pos = self.robot.execute_command('f')
+        self.assertEqual("(0,1,N)", new_pos)
