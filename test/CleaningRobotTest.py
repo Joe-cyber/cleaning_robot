@@ -75,3 +75,8 @@ class CleaningRobotTest(unittest.TestCase):
         self.robot.manage_battery()
         self.assertFalse(self.robot.cleaning_system_on)
 
+    @patch.object(GPIO, 'input')
+    def test_implement_execute_command_forward_status_update(self, mock_input):
+        mock_input.side_effect = [0, 0, 50]
+        self.robot.execute_command('f')
+        self.assertFalse(self.robot.cleaning_system_on)
