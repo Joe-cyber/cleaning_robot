@@ -14,7 +14,9 @@ class CleaningRobotTest(unittest.TestCase):
         self.robot = CleaningRobot(3, 3)
         self.robot.initialize_robot()
 
-    def test_initialize_robot(self):
+    @patch.object(GPIO, 'input')
+    def test_initialize_robot(self, mock_input):
+        mock_input.return_value = 0
         self.assertEqual("(0,0,N)", self.robot.robot_status())
 
     @patch.object(GPIO, 'input')
@@ -29,15 +31,21 @@ class CleaningRobotTest(unittest.TestCase):
         self.robot.manage_battery()
         self.assertTrue(self.robot.cleaning_system_on)
 
-    def test_implement_execute_command_forward(self):
+    @patch.object(GPIO, 'input')
+    def test_implement_execute_command_forward(self, mock_input):
+        mock_input.side_effect = [15, 0, 0]
         new_pos = self.robot.execute_command('f')
         self.assertEqual("(0,1,N)", new_pos)
 
-    def test_implement_execute_command_left(self):
+    @patch.object(GPIO, 'input')
+    def test_implement_execute_command_left(self, mock_input):
+        mock_input.side_effect = [15, 0, 0]
         new_pos = self.robot.execute_command('l')
         self.assertEqual("(0,0,W)", new_pos)
 
-    def test_implement_execute_command_right(self):
+    @patch.object(GPIO, 'input')
+    def test_implement_execute_command_right(self, mock_input):
+        mock_input.side_effect = [15, 0, 0]
         self.assertRaises(CleaningRobotError, self.robot.execute_command, 'a')
 
     @patch.object(GPIO, 'input')

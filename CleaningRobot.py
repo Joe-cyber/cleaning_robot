@@ -103,28 +103,30 @@ class CleaningRobot:
             Finally, o_x and o_y are the coordinates of the encountered obstacle.
         """
         dir = [self.N, self.W, self.S, self.E]
-        if command == 'f':
-            if self.obstacle_found():
+        self.manage_battery()
+        if not self.battery_led_on:
+            if command == 'f':
+                if self.obstacle_found():
+                    raise CleaningRobotError
+                self.activate_wheel_motor()
+                if self.facing == self.N:
+                    self.pos_y += 1
+                elif self.facing == self.S:
+                    self.pos_y -= 1
+                elif self.facing == self.W:
+                    self.pos_x -= 1
+                elif self.facing == self.E:
+                    self.pos_x += 1
+            elif command == 'l':
+                self.activate_rotation_motor(self.LEFT)
+                ind = dir.index(self.facing)
+                self.facing = dir.pop(0) if ind == 3 else dir.pop(ind + 1)
+            elif command == 'r':
+                self.activate_rotation_motor(self.RIGHT)
+                ind = dir.index(self.facing)
+                self.facing = dir.pop(3) if ind == 0 else dir.pop(ind - 1)
+            else:
                 raise CleaningRobotError
-            self.activate_wheel_motor()
-            if self.facing == self.N:
-                self.pos_y += 1
-            elif self.facing == self.S:
-                self.pos_y -= 1
-            elif self.facing == self.W:
-                self.pos_x -= 1
-            elif self.facing == self.E:
-                self.pos_x += 1
-        elif command == 'l':
-            self.activate_rotation_motor(self.LEFT)
-            ind = dir.index(self.facing)
-            self.facing = dir.pop(0) if ind == 3 else dir.pop(ind + 1)
-        elif command == 'r':
-            self.activate_rotation_motor(self.RIGHT)
-            ind = dir.index(self.facing)
-            self.facing = dir.pop(3) if ind == 0 else dir.pop(ind - 1)
-        else:
-            raise CleaningRobotError
         return self.robot_status()
 
     def obstacle_found(self) -> bool:
