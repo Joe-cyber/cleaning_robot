@@ -104,6 +104,8 @@ class CleaningRobot:
         """
         dir = [self.N, self.W, self.S, self.E]
         if command == 'f':
+            if self.obstacle_found():
+                raise CleaningRobotError
             self.activate_wheel_motor()
             if self.facing == self.N:
                 self.pos_y += 1

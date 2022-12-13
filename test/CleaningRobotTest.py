@@ -65,6 +65,6 @@ class CleaningRobotTest(unittest.TestCase):
 
     @patch.object(GPIO, 'input')
     def test_implement_execute_command_forward_status_update(self, mock_input):
-        mock_input.side_effect = [0, 50]
+        mock_input.side_effect = [0, 0, 50]
         self.robot.execute_command('f')
         self.assertRaises(CleaningRobotError, self.robot.execute_command, 'f')
