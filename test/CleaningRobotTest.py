@@ -13,6 +13,7 @@ class CleaningRobotTest(unittest.TestCase):
     def setUp(self) -> None:
         self.robot = CleaningRobot(3, 3)
         self.robot.initialize_robot()
+
     def test_initialize_robot(self):
         self.assertEqual("(0,0,N)", self.robot.robot_status())
 
@@ -22,3 +23,10 @@ class CleaningRobotTest(unittest.TestCase):
         self.robot.manage_battery()
         self.assertTrue(self.robot.battery_led_on)
 
+    @patch.object(GPIO, 'input')
+    def test_battery_is_up_10_percent(self, mock_input):
+        mock_input.return_value = 5
+        robot = CleaningRobot(3, 3)
+        robot.initialize_robot()
+        robot.manage_battery()
+        self.assertTrue(robot.cleaning_system_on)
