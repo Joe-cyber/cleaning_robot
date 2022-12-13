@@ -64,7 +64,7 @@ class CleaningRobot:
         """
         self.pos_x = 0
         self.pos_y = 0
-        self.facing = 'N'
+        self.facing = self.N
 
     def robot_status(self) -> str:
         """
@@ -105,7 +105,7 @@ class CleaningRobot:
         the robot turns on the recharging led and shuts off the cleaning system.
         Otherwise, the robot turns on the cleaning system and turns off the recharge LED.
         """
-        pass
+        self.battery_led_on = True
 
     def activate_wheel_motor(self) -> None:
         """

@@ -19,4 +19,5 @@ class CleaningRobotTest(unittest.TestCase):
         mock_input.return_value = 5
         robot = CleaningRobot(3, 3)
         robot.initialize_robot()
+        robot.manage_battery()
         self.assertTrue(robot.battery_led_on)
